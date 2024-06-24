@@ -2,6 +2,7 @@ import csv
 from decimal import Decimal, getcontext
 import matplotlib.pyplot as plt
 import math
+from time import time
 
 # def GoldenNumberByNFractions(n: int) -> Decimal:
 #     getcontext().prec = 39
@@ -187,5 +188,19 @@ plt.xlabel('Enésima casa decimal')
 plt.ylabel('Número')
 plt.show()
 
+timeLists = list()
+resultsList = list()
 
+for n in range(500):
+    start = time()
+    result = ZangõesFibonnaci(n)
+    resultsList
+    end = time()
+    t = end-start
+    print(t)
+    timeLists.append(t)
+
+
+
+bah = 2
 
