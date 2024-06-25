@@ -3,116 +3,120 @@ from decimal import Decimal, getcontext
 import matplotlib.pyplot as plt
 import math
 from time import time
+import sys
 
-# def GoldenNumberByNFractions(n: int) -> Decimal:
-#     getcontext().prec = 39
-#     number = Decimal(1)
+def GoldenNumberByNFractions(n: int) -> Decimal:
+    getcontext().prec = 39
+    number = Decimal(1)
    
-#     number += Decimal(1) / GetNextDivision(n, 1)
+    number += Decimal(1) / GetNextDivision(n, 1)
 
-#     return number
+    return number
 
-# def GetNextDivision(n: int, k: int) -> Decimal:
-#     if k < n:
-#         return Decimal(1) + (Decimal(1) / GetNextDivision(n, k + 1))
+def GetNextDivision(n: int, k: int) -> Decimal:
+    if k < n:
+        return Decimal(1) + (Decimal(1) / GetNextDivision(n, k + 1))
     
-#     return Decimal(1)
+    return Decimal(1)
 
-# results = {}
-# goldenNumber = Decimal('1.6180339887498948482045868343656381177')
+results = {}
+goldenNumber = Decimal('1.6180339887498948482045868343656381177')
 
-# with open('ResultadosFractions.csv', 'w', newline='') as resultados:
-#     writer = csv.writer(resultados, delimiter=',')
-#     correctDecimals = 0
-#     relevantNumberIndex = 1
+with open('ResultadosFractions.csv', 'w', newline='') as resultados:
+    writer = csv.writer(resultados, delimiter=',')
+    correctDecimals = 0
+    relevantNumberIndex = 1
 
-#     #Pula até a primeira casa decimal
-#     relevantNumberResult = '6'
-#     relevantNumberGolden = '6'
+    #Pula até a primeira casa decimal
+    relevantNumberResult = '6'
+    relevantNumberGolden = '6'
 
-#     for it in range(3,900):
-#         result = GoldenNumberByNFractions(it)
+    for it in range(3,900):
+        result = GoldenNumberByNFractions(it)
 
-#         relevantNumberResult = format(result, '.37f').replace('.','')[relevantNumberIndex]
+        relevantNumberResult = format(result, '.37f').replace('.','')[relevantNumberIndex]
         
-#         if relevantNumberResult == relevantNumberGolden:
-#             results[correctDecimals] = it
-#             correctDecimals = correctDecimals + 1
-#             writer.writerow([correctDecimals, it])
+        if relevantNumberResult == relevantNumberGolden:
+            results[correctDecimals] = it
+            correctDecimals = correctDecimals + 1
+            writer.writerow([correctDecimals, it])
 
-#             relevantNumberIndex = relevantNumberIndex + 1
-#             if relevantNumberIndex > 37:
-#                 break
-#             relevantNumberGolden = format(goldenNumber, '.37f').replace('.','')[relevantNumberIndex]
-
-
-# keys = [a for a in results.keys()]
-# values = [a for a in results.values()]
-# fig, ax = plt.subplots(1,1)
-
-#fig.set_size_inches(10, 10)
-
-# ax.plot(results.keys(), results.values(), marker='o')
-# ax.set_xticks(keys)
-# ax.set_yticks(values)
-# plt.show()
+            relevantNumberIndex = relevantNumberIndex + 1
+            if relevantNumberIndex > 37:
+                break
+            relevantNumberGolden = format(goldenNumber, '.37f').replace('.','')[relevantNumberIndex]
 
 
-# def GoldenNumberByNRoots(n : int) -> Decimal:
-#     getcontext().prec = 39
-#     number = Decimal(1)
+keys = [a for a in results.keys()]
+values = [a for a in results.values()]
+fig, ax = plt.subplots(1,1)
 
-#     return (number + GetNextRoot(n, 1))**Decimal(1/2)
+fig.set_size_inches(10, 10)
 
-
-# def GetNextRoot(n : int, k : int) -> Decimal:
-#     if k < n:
-#         return (Decimal(1) + GetNextRoot(n, k+1))**Decimal(1/2)
-
-#     return Decimal(1)
-
-
-# teste = GoldenNumberByNRoots(2)
-# bah = 2
+ax.plot(results.keys(), results.values(), marker='o')
+ax.set_xlabel('Número de casas decimais corretas')
+ax.set_ylabel('Número de iterações')
+ax.set_title('Iterações necessárias para ter a enésima casa decimal correta')
+ax.set_xticks(keys)
+ax.set_yticks(values)
+plt.show()
 
 
-# with open('ResultadosRoots.csv', 'w', newline='') as resultados:
-#     writer = csv.writer(resultados, delimiter=',')
-#     correctDecimals = 0
-#     relevantNumberIndex = 1
+def GoldenNumberByNRoots(n : int) -> Decimal:
+    getcontext().prec = 39
+    number = Decimal(1)
 
-#     #Pula até a primeira casa decimal
-#     relevantNumberResult = '6'
-#     relevantNumberGolden = '6'
+    return (number + GetNextRoot(n, 1))**Decimal(1/2)
 
-#     results = {}
-#     goldenNumber = Decimal('1.6180339887498948482045868343656381177')
 
-#     for it in range(4,900):
-#         result = GoldenNumberByNRoots(it)
+def GetNextRoot(n : int, k : int) -> Decimal:
+    if k < n:
+        return (Decimal(1) + GetNextRoot(n, k+1))**Decimal(1/2)
 
-#         relevantNumberResult = format(result, '.37f').replace('.','')[relevantNumberIndex]
+    return Decimal(1)
+
+
+
+with open('ResultadosRoots.csv', 'w', newline='') as resultados:
+    writer = csv.writer(resultados, delimiter=',')
+    correctDecimals = 0
+    relevantNumberIndex = 1
+
+    #Pula até a primeira casa decimal
+    relevantNumberResult = '6'
+    relevantNumberGolden = '6'
+
+    results = {}
+    goldenNumber = Decimal('1.6180339887498948482045868343656381177')
+
+    for it in range(4,900):
+        result = GoldenNumberByNRoots(it)
+
+        relevantNumberResult = format(result, '.37f').replace('.','')[relevantNumberIndex]
         
-#         if relevantNumberResult == relevantNumberGolden:
-#             results[correctDecimals] = it
-#             correctDecimals = correctDecimals + 1
-#             writer.writerow([correctDecimals, it])
+        if relevantNumberResult == relevantNumberGolden:
+            results[correctDecimals] = it
+            correctDecimals = correctDecimals + 1
+            writer.writerow([correctDecimals, it])
 
-#             relevantNumberIndex = relevantNumberIndex + 1
-#             if relevantNumberIndex > 37:
-#                 break
-#             relevantNumberGolden = format(goldenNumber, '.37f').replace('.','')[relevantNumberIndex]
+            relevantNumberIndex = relevantNumberIndex + 1
+            if relevantNumberIndex > 37:
+                break
+            relevantNumberGolden = format(goldenNumber, '.37f').replace('.','')[relevantNumberIndex]
 
-# keys = [a for a in results.keys()]
-# values = [a for a in results.values()]
-# fig, ax = plt.subplots(1,1)
+keys = [a for a in results.keys()]
+values = [a for a in results.values()]
+fig, ax = plt.subplots(1,1)
 
-# fig.set_size_inches(10, 10)
+fig.set_size_inches(10, 10)
 
-# ax.plot(results.keys(), results.values(), marker='o')
-# ax.set_xticks(keys)
-# ax.set_yticks(values)
-# plt.show()
+ax.plot(results.keys(), results.values(), marker='o')
+ax.set_xlabel('Número de casas decimais corretas')
+ax.set_ylabel('Número de iterações')
+ax.set_title('Iterações necessárias para ter a enésima casa decimal correta')
+ax.set_xticks(keys)
+ax.set_yticks(values)
+plt.show()
 
 
 #Fibonnaci em que todo enésimo número está na casa n-1
@@ -157,12 +161,6 @@ for it in range(1,100):
     
     lastFibo = currentFibo
 
-# for it in range(1,100):
-#     fibonacci.append(ZangõesFibonnaci(it))
-#     resultados[it] = Decimal(fibonacci[it]) / Decimal(fibonacci[it-1])
-
-
-
 x = [a for a in results.keys()]
 y = [a for a in results.values()]
 
@@ -181,26 +179,63 @@ plt.gcf().text(0.15, 0.025, 'movidos uma casa para trás', color='red')
 plt.show()
 
 #Gráfico x=número na sequência y=valor
-
 plt.plot([a for a in range(len(fibonacci))], fibonacci, marker='o', color='#77e610')
 plt.title('Número por posição na sequência de Fibonacci')
 plt.xlabel('Enésima casa decimal')
 plt.ylabel('Número')
 plt.show()
 
+
+
 timeLists = list()
 resultsList = list()
 
-for n in range(500):
+sys.setrecursionlimit(5000)
+range = [a for a in range(4500)]
+
+for n in range:
     start = time()
     result = ZangõesFibonnaci(n)
-    resultsList
+    resultsList.append(result)
     end = time()
     t = end-start
     print(t)
     timeLists.append(t)
 
+plt.plot(range, timeLists, 'o', color='royalblue')
+plt.title('Distribuição do tempo em função da geração alvo buscada')
+plt.xlabel('Geração')
+plt.ylabel('Tempo (s)')
+plt.show()
+
+def RecursionDictionary(n : int, dictionary : dict):
+    value = dictionary.get(n)
+    if value:
+        return value, dictionary
+    else:
+        dictionary[n] = RecursionDictionary(n-2, dictionary)+ RecursionDictionary(n-1, dictionary)
+    return dictionary[n], dictionary
+
+resultsList.clear()
+timeLists.clear()
+
+dictionary = {0 : '1',
+              1 : '1'}
 
 
-bah = 2
+
+for a in range:
+    start = time()
+    result, dictionary = RecursionDictionary(a, dictionary)
+    end = time()
+    timeLists.append(end-start)
+    resultsList.append(result)
+
+plt.plot(range, timeLists, 'o', color='olive')
+plt.title('Distribuição do tempo em função da geração alvo buscada')
+plt.xlabel('Geração')
+plt.ylabel('Tempo (s)')
+plt.show()
+
+bah = 20
 
